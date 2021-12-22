@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+// Might have to create app registry if we run into problems with this app, check react native web docs & guide
 
 ReactDOM.render(
   <React.StrictMode>

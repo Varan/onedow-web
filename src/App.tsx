@@ -1,21 +1,7 @@
 import React, { useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-
-/*
-const App: React.FC = () => {
-  const [count, setCount] = useState(0)
-  return(
-    <View>
-      <Text>Wassup</Text>
-      <Text> {count}</Text>
-      <Button title="increment" onPress= {() => setCount(count+1)}></Button>
-    </View>
-  );
-};
-
-export default App;
-*/
+// This file is just the index.tsx file from the common monorepo folder
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -72,6 +58,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
+
+/*
+const App: React.FC = () => {
+  const [count, setCount] = useState(0)
+  return(
+    <View>
+      <Text>Wassup</Text>
+      <Text> {count}</Text>
+      <Button title="increment" onPress= {() => setCount(count+1)}></Button>
+    </View>
+  );
+};
+
+export default App;
+*/
 
 /*
 

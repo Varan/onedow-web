@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useContext } from 'react';
 import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { CounterStoreContext } from './stores/CounterStore';
 
 // This file is just the index.tsx file from the common monorepo folder
 
-const App = () => {
-  const [count, setCount] = useState(0);
+const App = observer(() => {
+  const counterStore = useContext(CounterStoreContext);
 
   return (
     <SafeAreaView style={styles.root}>
@@ -15,12 +17,12 @@ const App = () => {
         <View style={styles.platformBackground}>
           <Text style={styles.platformValue}>Webberino</Text>
         </View>
-        <Text style={styles.text}> {count}</Text>
-        <Button title="Spam Tjolt!" onPress={() => setCount(count+1)}></Button>
+        <Text style={styles.text}> {counterStore.count}</Text>
+        <Button title="Spam Tjolt!" onPress={() => counterStore.count++}></Button>
       </View>
     </SafeAreaView>
   );
-};
+});
 
 export default App;
 

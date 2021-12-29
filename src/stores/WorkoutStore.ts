@@ -1,4 +1,5 @@
 import { createContext } from "react";
+import { WorkoutHistory } from "../modules/WorkoutHistory";
 
 type WorkoutDay = 'a' | 'b';
 

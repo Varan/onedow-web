@@ -1,28 +1,19 @@
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
-import { Button, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { CounterStoreContext } from './stores/CounterStore';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Router } from './Router';
 
 // This file is just the index.tsx file from the common monorepo folder
 
-const App = observer(() => {
-  const counterStore = useContext(CounterStoreContext);
+const App = () => {
 
   return (
-    <SafeAreaView style={styles.root}>
-{/*      <Image style={styles.logo} source={LogoSrc} />           */}
-      <Text style={styles.text}>Hello from React Native!</Text>
-      <View style={styles.platformRow}>
-        <Text style={styles.text}>Platform: </Text>
-        <View style={styles.platformBackground}>
-          <Text style={styles.platformValue}>Webberino</Text>
-        </View>
-        <Text style={styles.text}> {counterStore.count}</Text>
-        <Button title="Spam Tjolt!" onPress={() => counterStore.count++}></Button>
+    <View style={styles.container}>
+      <View style={styles.wrapper}>
+      <Router></Router>
       </View>
-    </SafeAreaView>
+    </View>
   );
-});
+};
 
 export default App;
 
@@ -32,6 +23,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "white",
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: '#F5FCFF',
+    height: "100%"
+  },
+  wrapper: {
+    backgroundColor: "F5FCFF",
+    width: "100%",
+    maxWidth: 425
   },
   logo: {
     width: 120,
@@ -60,46 +63,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-
-/*
-const App: React.FC = () => {
-  const [count, setCount] = useState(0)
-  return(
-    <View>
-      <Text>Wassup</Text>
-      <Text> {count}</Text>
-      <Button title="increment" onPress= {() => setCount(count+1)}></Button>
-    </View>
-  );
-};
-
-export default App;
-*/
-
-/*
-
-DEFAULT App.tsx 
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to SIMP FOR GANYU HAHAHAHAHA.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
-*/

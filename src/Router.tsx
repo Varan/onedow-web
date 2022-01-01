@@ -13,4 +13,4 @@ export const Router = observer(() => {
         ) : (
         <CurrentWorkout></CurrentWorkout>
         ); 
-})
+});

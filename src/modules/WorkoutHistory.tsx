@@ -18,7 +18,7 @@ export const WorkoutHistory: React.FC<Props> = observer(() => {
                 exercise: "Squat",
                 numSets: 5,
                 reps: 5,
-                sets: ["5", "5", "5", "5", "5"],
+                sets: ["", "", "", "", ""],
                 weight: 260
                 },
                 {

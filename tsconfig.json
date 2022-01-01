@@ -20,7 +20,8 @@
     "experimentalDecorators": true,
     "strictPropertyInitialization": false,
     "declaration": true,
-    "jsx": "react"
+    "jsx": "react",
+    "noImplicitAny": false
   },
   "include": [
     "src"

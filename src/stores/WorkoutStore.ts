@@ -1,5 +1,6 @@
-import { createContext } from "react";
+import { observable } from "mobx";
 import { WorkoutHistory } from "../modules/WorkoutHistory";
+import { RootStore } from "./RootStore";
 
 type WorkoutDay = 'a' | 'b';
 
@@ -8,6 +9,14 @@ interface WorkoutHistory {
         exercise: string,
         value: number
     }>
+}
+
+interface CurrentExercise {
+    weight: number;
+    reps: number;
+    numSets: number;
+    exercise: string;
+    sets: string[];
 }
 
 /*
@@ -28,16 +37,21 @@ What it might look like inside
 */
 
 
-class WorkoutStore{
-    currentSquat: number;
-    currentBenchPress: number;
-    currentOverheadPress: number;
-    currentDeadlift: number;
-    currentBarbellRow: number;
+export class WorkoutStore{
+    rootStore: RootStore;
+    constructor(rootStore: RootStore){
+        this.rootStore = rootStore;
+    }
+    
+    @observable currentSquat: number;
+    @observable currentBenchPress: number;
+    @observable currentOverheadPress: number;
+    @observable currentDeadlift: number;
+    @observable currentBarbellRow: number;
 
-    lastWorkoutType: WorkoutDay;
+    @observable lastWorkoutType: WorkoutDay;
 
-    history: WorkoutHistory;
+    @observable currentExercises: CurrentExercise[] = []
+
+    @observable history: WorkoutHistory;
 }
-
-export const WorkoutStoreContext = createContext(new WorkoutStore());

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Router } from './Router';
+import { Routes } from './Routes';
 
 // This file is just the index.tsx file from the common monorepo folder
 
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
-      <Router></Router>
+      <Routes></Routes>
       </View>
     </View>
   );

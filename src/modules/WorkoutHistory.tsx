@@ -1,13 +1,36 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Button, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { RouteComponentProps } from "react-router"; // react router or react router native?
 import { RootStoreContext } from "../stores/RootStore";
+import { HistoryCard } from "../ui/HistoryCard";
 
 interface Props extends RouteComponentProps{}
 
 export const WorkoutHistory: React.FC<Props> = observer(({history}) => {
     const rootStore = React.useContext(RootStoreContext)
+
+    const rows: JSX.Element[][] = [];
+
+    Object.entries(rootStore.workoutStore.history).forEach(([dt, v], i) => {
+        const hc = <HistoryCard key={dt} header={dt} currentExercises={v}></HistoryCard>
+        if (i % 2 === 0){
+            rows.push([hc])
+        } else {
+            rows[rows.length - 1].push(hc)
+        }
+    });
+
+/*
+
+// object.entries turns an object into an array; each item is an array is a key, value pair of date, currentExercises
+
+[
+    [hc, hc]
+    [hc, hc]
+    ...
+]
+*/
 
     return(
         <View>
@@ -41,6 +64,17 @@ export const WorkoutHistory: React.FC<Props> = observer(({history}) => {
                 history.push('/current-workout')
                 }}>
                 </Button>
+            
+           {rows.map((r,i) => (
+               <View key={i} style={styles.row}>{r}</View>
+           ))}
         </View>
     );
 });
+
+const styles = StyleSheet.create({
+    row: {
+        flexDirection: 'row',
+
+    }
+})

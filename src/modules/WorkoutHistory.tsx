@@ -1,9 +1,10 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { Button, FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { RouteComponentProps } from "react-router"; // react router or react router native?
 import { RootStoreContext } from "../stores/RootStore";
 import { CurrentExercise } from "../stores/WorkoutStore";
+import { Fab } from "../ui/Fab";
 import { HistoryCard } from "../ui/HistoryCard";
 
 interface Props extends RouteComponentProps{}
@@ -46,38 +47,7 @@ HOW IT USED TO WORK:
 */
 
     return(
-        <View>
-            <Text>Workout History page</Text>
-            <Button title="create workout"
-            onPress={() => {
-                rootStore.workoutStore.currentExercises.push(
-                {
-                exercise: "Squat",
-                numSets: 5,
-                reps: 5,
-                sets: ["", "", "", "", ""],
-                weight: 260
-                },
-                {
-                exercise: "Bench Press",
-                numSets: 5,
-                reps: 5,
-                sets: ["5", "5", "5", "5", "5"],
-                weight: 145
-                },
-                {
-                exercise: "Deadlift",
-                numSets: 1,
-                reps: 5,
-                sets: ["x", "x", "x", "x", "x"],
-                weight: 360
-                }
-                );
-
-                history.push('/current-workout')
-                }}>
-                </Button>
-
+        <View style={styles.container}>
             <FlatList 
             renderItem={({item}) => (
                 <View style={styles.row}>
@@ -100,6 +70,35 @@ HOW IT USED TO WORK:
 
             </FlatList>
             
+            <Fab onPress={() => {
+                
+                rootStore.workoutStore.currentExercises.push(
+                    {
+                    exercise: "Squat",
+                    numSets: 5,
+                    reps: 5,
+                    sets: ["", "", "", "", ""],
+                    weight: 260
+                    },
+                    {
+                    exercise: "Bench Press",
+                    numSets: 5,
+                    reps: 5,
+                    sets: ["5", "5", "5", "5", "5"],
+                    weight: 145
+                    },
+                    {
+                    exercise: "Deadlift",
+                    numSets: 1,
+                    reps: 5,
+                    sets: ["x", "x", "x", "x", "x"],
+                    weight: 360
+                    }
+                    );
+    
+                    history.push('/current-workout')
+            }}></Fab>
+            
         </View>
     );
 });
@@ -111,5 +110,8 @@ const styles = StyleSheet.create({
     cardContainer: {
         flex: 1,
         padding: 10
+    },
+    container: {
+        flex: 1
     }
 })

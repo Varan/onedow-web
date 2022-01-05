@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fab:{
         width: 40,
         height: 40,
-        backgroundColor: 'chartreuse',
+        backgroundColor: 'green',
         position: 'absolute',
         bottom: 10,
         right: 20,

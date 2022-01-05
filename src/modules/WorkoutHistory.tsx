@@ -71,31 +71,78 @@ HOW IT USED TO WORK:
             </FlatList>
             
             <Fab onPress={() => {
-                
-                rootStore.workoutStore.currentExercises.push(
-                    {
-                    exercise: "Squat",
-                    numSets: 5,
-                    reps: 5,
-                    sets: ["", "", "", "", ""],
-                    weight: 260
-                    },
-                    {
-                    exercise: "Bench Press",
-                    numSets: 5,
-                    reps: 5,
-                    sets: ["5", "5", "5", "5", "5"],
-                    weight: 145
-                    },
-                    {
-                    exercise: "Deadlift",
-                    numSets: 1,
-                    reps: 5,
-                    sets: ["x", "x", "x", "x", "x"],
-                    weight: 360
+                if (!rootStore.workoutStore.hasCurrentWorkout){
+
+                    const {currentBarbellRow, currentBenchPress, currentDeadlift, currentSquat, currentOverheadPress} = rootStore.workoutStore;
+                    const emptySets = ["", "", "", "", ""]
+
+                    if (rootStore.workoutStore.lastWorkoutType === 'b') {
+                        
+                        rootStore.workoutStore.currentExercises.push(
+                            {
+                            exercise: "Squat",
+                            numSets: 5,
+                            reps: 5,
+                            sets: [...emptySets],
+                            weight: currentSquat
+                            },
+                            {
+                            exercise: "Bench Press",
+                            numSets: 5,
+                            reps: 5,
+                            sets: [...emptySets],
+                            weight: currentBenchPress
+                            },
+                            {
+                            exercise: "Deadlift",
+                            numSets: 1,
+                            reps: 5,
+                            sets: ["", "x", "x", "x", "x"],
+                            weight: currentDeadlift
+                            }
+                            );
+
+                            rootStore.workoutStore.currentSquat += 5
+                            rootStore.workoutStore.currentBenchPress += 5
+                            rootStore.workoutStore.currentDeadlift += 5
+
+                    } else {
+                        rootStore.workoutStore.currentExercises.push(
+                            {
+                            exercise: "Squat",
+                            numSets: 5,
+                            reps: 5,
+                            sets: [...emptySets],
+                            weight: currentSquat
+                            },
+                            {
+                            exercise: "Overhead Press",
+                            numSets: 5,
+                            reps: 5,
+                            sets: [...emptySets],
+                            weight: currentOverheadPress
+                            },
+                            {
+                            exercise: "Barbell Row",
+                            numSets: 5,
+                            reps: 5,
+                            sets: [...emptySets],
+                            weight: currentBarbellRow
+                            }
+                            );
+
+                            rootStore.workoutStore.currentSquat += 5
+                            rootStore.workoutStore.currentOverheadPress += 5
+                            rootStore.workoutStore.currentBarbellRow += 5
                     }
-                    );
     
+                        rootStore.workoutStore.lastWorkoutType = 
+                            rootStore.workoutStore.lastWorkoutType === "a" ? "b" : "a";
+                            
+                }
+
+
+
                     history.push('/current-workout')
             }}></Fab>
             

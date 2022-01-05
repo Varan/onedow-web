@@ -1,17 +1,22 @@
 import dayjs from "dayjs";
 import { observer } from "mobx-react-lite";
 import React, { useContext, useEffect } from "react";
-import { Button, StyleSheet, View } from "react-native";
+import { Button, ScrollView, StyleSheet, View } from "react-native";
 import { RouteComponentProps } from "react-router-native";
 import { RootStoreContext } from "../stores/RootStore";
 import { WorkoutCard } from "../ui/WorkoutCard";
 import { WorkoutTimer } from "../ui/WorkoutTimer";
 
-interface Props extends RouteComponentProps{
+interface Props extends RouteComponentProps<{
+    year?: string;
+    month?: string;
+    day?: string;
+}>{}
 
-}
-
-export const CurrentWorkout: React.FC<Props> = observer(({history}) => {
+export const CurrentWorkout: React.FC<Props> = observer(
+    ({history, 
+        match: {params: {day, month, year}}
+    }) => {
     const rootStore = useContext(RootStoreContext);
     useEffect(() => {
         return () => {
@@ -19,9 +24,16 @@ export const CurrentWorkout: React.FC<Props> = observer(({history}) => {
         }
     }, [])
     
+    const isCurrentWorkout = !year && !month && !day;
+    const dateKey = `${year}-${month}-${day}`;
+
     return(   
         <View style={styles.container}>
-            {rootStore.workoutStore.currentExercises.map(e => {
+            <ScrollView keyboardShouldPersistTaps="always" contentContainerStyle={styles.scrollContainer}>
+            {(isCurrentWorkout 
+            ? rootStore.workoutStore.currentExercises 
+            : rootStore.workoutStore.history[dateKey]
+            ).map(e => {
                 return (
                     <WorkoutCard
                     onSetPress={setIndex => {
@@ -50,10 +62,13 @@ export const CurrentWorkout: React.FC<Props> = observer(({history}) => {
                 )
             })}
             <Button title="SAVE" onPress={() => {
+                if (isCurrentWorkout) {
                 rootStore.workoutStore.history[dayjs().format('YYYY-MM-DD')] = rootStore.workoutStore.currentExercises;
                 rootStore.workoutStore.currentExercises = [];
+                }
                 history.push('/');
             }}></Button>
+            </ScrollView>
             {rootStore.workoutTimerStore.isRunning ? (
             <WorkoutTimer 
             percent={rootStore.workoutTimerStore.percent}
@@ -65,7 +80,7 @@ export const CurrentWorkout: React.FC<Props> = observer(({history}) => {
     );
 });
 
-// insert the following into the parenthesis of dayjs() in line 53:
+// insert the following into the parenthesis of dayjs()  for random date:
 // new Date(+(new Date()) - Math.floor(Math.random()*10000000000))
 
 const styles = StyleSheet.create({
@@ -73,5 +88,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fafafa',
         padding: 10
+    },
+    scrollContainer: {
+        padding: 10,
+        marginBottom: 50
     }
 });

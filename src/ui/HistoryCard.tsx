@@ -6,6 +6,7 @@ import { Card } from "./Card";
 interface Props{
     header: string;
     currentExercises: CurrentExercise[];
+    onPress: () => void;
 }
 
 // this is a map: mapping names to shorthands
@@ -17,10 +18,10 @@ const exerciseShortName = {
     "Barbell Row": "ROW"
 }
 
-export const HistoryCard: React.FC<Props> = ({header, currentExercises}) => {
+export const HistoryCard: React.FC<Props> = ({header, currentExercises, onPress}) => {
 
     return(
-        <Card>
+        <Card onPress={onPress}>
             <Text> {header} </Text>
             {currentExercises.map((ce)=> {
                return(
